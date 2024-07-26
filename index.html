@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Info</title>
+    <link rel="icon" href="Images/icon2.png" type="image/icon type">
+</head>
+<div class="text">
+<body>
+    <form id="form">
+        <img src="Images/icon.png" alt="GM masažai">
+        <div>
+            <label for="code">Kupono Kodas:</label><br>
+            <input type="text" id="code"><br>
+        </div>
+        <div> 
+            <label for="date">Data:</label><br>
+            <input type="text" id="date"><br>
+        </div>
+        <div>
+            <label for="message">Žinutė:</label><br>
+            <textarea id="message"></textarea><br>
+        </div>
+        <div class="pick">
+            <input type="radio" id="gm" name="coupon" value="gm" checked="checked">
+            <label for="gm">GM</label>
+            <input type="radio" id="em" name="coupon" value="em">
+            <label for="em">EM</label><br>
+        </div>
+        <div>
+            <a href="output.html">
+            <button type="submit" id="bttn">Gauti Kuponą</button>
+            </a>
+        </div>
+    </form>
+
+    <script>
+            const form = document.getElementById('form');
+            const code = document.getElementById('code');
+            const date = document.getElementById('date');
+            const message = document.getElementById('message');
+            const gm = document.getElementById('gm');
+            const em = document.getElementById('em');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const codeValue = code.value;
+                const dateValue = date.value;
+                const messageValue = message.value;
+
+                localStorage.setItem('code', codeValue);
+                localStorage.setItem('date', dateValue);
+                localStorage.setItem('message', messageValue);
+
+                if (gm.checked == true) {
+                    const checkValue = gm.value;
+                    localStorage.setItem('check', checkValue);
+                } else {
+                    const checkValue = em.value;
+                    localStorage.setItem('check', checkValue);
+                }
+
+                window.location.href = "output.html";
+            })
+    </script>
+</body>
+</div>
+</html>

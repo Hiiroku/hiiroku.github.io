@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuponas</title>
+    <link rel="icon" href="Images/icon2.png" type="image/icon type">
+    <style>
+        @font-face { font-family: Cambria; src: url("Fonts/Cambriab.ttf") format("truetype");}
+    </style>
+</head>
+<body>
+    
+    <canvas id="myCanvas" width="1309" height="1792" style="border:1px solid #d3d3d3;">
+    
+    <script>
+        
+        window.onload = function() {
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            var img = document.getElementById(checkbox);
+            ctx.drawImage(img, 10, 10);
+            const maxWidth = 550;
+            const lineHeight = 76;
+            const x = 60;
+            const y = 1242;
+            const text = message;
+            ctx.font = "bold 31pt Cambria";
+            ctx.fillStyle = '#58585a';
+            wrapText(ctx, text, x, y, maxWidth, lineHeight);
+
+            ctx.font = "bold 22pt Cambria";
+            ctx.fillText(code, 1020, 1318);
+            ctx.fillText(date, 1043, 1394);
+
+            var image = canvas.toDataURL();  
+
+            var tmpLink = document.createElement( 'a' );  
+            tmpLink.download = 'image.png';
+            tmpLink.href = image;  
+   
+            document.body.appendChild( tmpLink );  
+            tmpLink.click();  
+            document.body.removeChild( tmpLink ); 
+            };
+
+            const wrapText = (ctx, text, x, y, maxWidth, lineHeight) => {
+                const words = text.split(' ');
+                let line = '';
+                for (const [index, w] of words.entries()) {
+                    const testLine = line + w + ' ';
+                    const metrics = ctx.measureText(testLine);
+                    const testWidth = metrics.width;
+                    if (testWidth > maxWidth && index > 0) {
+                    ctx.fillText(line, x, y);
+                    line = w + ' ';
+                    y += lineHeight;
+                    } else {
+                    line = testLine;
+                    }
+                }
+                ctx.fillText(line, x, y);
+                }
+    </script>
+
+    <script>
+        const code = localStorage.getItem('code')
+        const date =  localStorage.getItem('date')
+        const message = localStorage.getItem('message')
+        const checkbox = localStorage.getItem('check')
+
+        document.getElementById('code').textContent = code;
+        document.getElementById('date').textContent = date;
+        document.getElementById('message').textContent = message;
+        document.getElementById('check').textContent = checkbox;
+    </script>
+
+    <img id="gm" width="1289" height="1772" src="Images/GM.png" alt="Gaiva">
+    <img id="em" width="1289" height="1772" src="Images/EM.png" alt="Ernestas">
+
+</body>
+</html>
