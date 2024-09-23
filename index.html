@@ -13,40 +13,53 @@
     <form id="form">
         <img src="Images/icon.png" alt="GM masažai">
         <div>
+            <label for="name">Vardas pavardė:</label><br>
+            <input name="Vardas" type="text" id="name"><br>
+        </div>
+        <div>
             <label for="code">Kupono Kodas:</label><br>
-            <input type="text" id="code"><br>
+            <input name="Kodo Nr." type="text" id="code"><br>
         </div>
         <div> 
-            <label for="date">Data:</label><br>
-            <input type="text" id="date"><br>
+            <label for="date">Galioja iki:</label><br>
+            <input name="Data" type="date" id="date"><br>
         </div>
         <div>
             <label for="message">Žinutė:</label><br>
-            <textarea id="message"></textarea><br>
+            <textarea name="Žinutė" id="message"></textarea><br>
         </div>
         <div class="pick">
-            <input type="radio" id="gm" name="coupon" value="gm" checked="checked">
-            <label for="gm">GM</label>
-            <input type="radio" id="em" name="coupon" value="em">
-            <label for="em">EM</label><br>
+            <input type="radio" id="GM" name="#" value="GM" checked="checked">
+            <label for="GM">GM</label>
+            <input type="radio" id="EM" name="#" value="EM">
+            <label for="EM">EM</label><br>
         </div>
         <div>
-            <a href="output.html">
-            <button type="submit" id="bttn">Gauti Kuponą</button>
-            </a>
+            <!-- <a href="output.html"> -->
+            <button type="submit" id="submit">Gauti Kuponą</button>
+            <!-- </a> -->
         </div>
     </form>
-
+</div>
     <script>
-            const form = document.getElementById('form');
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbx_SCCz75RzlgvwuonEXN1DGaZPiEkswGetLd-Aai2tm5pzjSSZqmmJtsCFawMF1ZBj/exec';
+            const form = document.querySelector('#form');
+            const btn = document.querySelector('#submit');
+
             const code = document.getElementById('code');
             const date = document.getElementById('date');
             const message = document.getElementById('message');
-            const gm = document.getElementById('gm');
-            const em = document.getElementById('em');
+            const gm = document.getElementById('GM');
+            const em = document.getElementById('EM');
 
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
+                btn.disabled = true
+                btn.innerHTML = "Loading..."
+
+                console.log(form)
+                fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+
                 const codeValue = code.value;
                 const dateValue = date.value;
                 const messageValue = message.value;
@@ -67,5 +80,4 @@
             })
     </script>
 </body>
-</div>
 </html>
